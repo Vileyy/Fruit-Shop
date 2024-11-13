@@ -1,0 +1,15 @@
+<!-- res/drawable/background_shape.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" />
+    <gradient
+        android:angle="45"
+        android:startColor="#E2FAF3"
+        android:endColor="#BBEFE4"
+        android:type="linear" />
+
+    <corners android:radius="16dp" />
+
+    <stroke
+        android:color="#A3E4D7"
+        android:width="2dp" />
+</shape>
