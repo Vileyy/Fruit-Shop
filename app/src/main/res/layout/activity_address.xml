@@ -10,43 +10,45 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <!-- Header with Back button and Title -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/icon_arrow_back"
-                    android:layout_marginStart="16dp" />
+                    android:layout_marginStart="16dp"
+                    app:srcCompat="@drawable/icon_arrow_back" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="23sp"
-                    android:textColor="@color/green"
                     android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    android:text="Thêm địa chỉ"
                     android:textAlignment="center"
-                    android:text="Thêm địa chỉ" />
+                    android:textColor="@color/green"
+                    android:textSize="23sp" />
             </LinearLayout>
 
             <!-- Address Form Section -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="500dp"
                 android:layout_marginTop="10dp">
 
                 <!-- First Section: Contact Info -->
@@ -90,6 +92,7 @@
 
                 <!-- Second Section: Address Info -->
                 <LinearLayout
+                    android:id="@+id/linearLayout5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -132,6 +135,21 @@
                         android:layout_marginTop="20dp" />
 
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:textSize="19sp"
+                    android:textColor="@color/white"
+                    android:text="Lưu"
+                    android:background="@drawable/background_btnsave"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

@@ -15,6 +15,10 @@ import com.example.fruit_shop.R;
 public class ProfileActivity extends AppCompatActivity {
     //Khai báo biến
     private View Address;
+    private View Order;
+    private View Help;
+    private View Setting;
+    private View ProfileUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +33,44 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Ánh xạ các thành phần
         Address = findViewById(R.id.Address);
+        Order = findViewById(R.id.Order);
+        Help = findViewById(R.id.Help);
+        Setting = findViewById(R.id.Setting);
+        ProfileUser = findViewById(R.id.ProfileUser);
 
         //Xử lý sự kiện
         Address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, AddressActivity.class);
+                startActivity(intent);
+            }
+        });
+        Order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, OrderActivity.class);
+                startActivity(intent);
+            }
+        });
+        Help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, HelpActivity.class);
+                startActivity(intent);
+            }
+        });
+        Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        ProfileUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, ProfileUser.class);
                 startActivity(intent);
             }
         });

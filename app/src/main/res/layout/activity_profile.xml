@@ -76,7 +76,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="24dp"
-                    android:text="DOAN HIEU"
+                    android:text="Name User"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -87,21 +87,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:orientation="horizontal">
 
                 <GridLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                   android:padding="7dp"
                     android:columnCount="2">
 
                     <LinearLayout
                         android:id="@+id/ProfileUser"
-                        android:layout_width="169dp"
+                        android:layout_width="167dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
@@ -126,7 +126,7 @@
                         android:id="@+id/Order"
                         android:layout_width="169dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
@@ -151,7 +151,7 @@
                         android:id="@+id/Address"
                         android:layout_width="169dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
@@ -173,10 +173,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/Contract"
+                        android:id="@+id/Help"
                         android:layout_width="169dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
@@ -201,7 +201,7 @@
                         android:id="@+id/Setting"
                         android:layout_width="169dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
@@ -226,7 +226,7 @@
                         android:id="@+id/Logout"
                         android:layout_width="169dp"
                         android:layout_height="83dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="8dp"
                         android:background="@drawable/background_edittext"
                         android:orientation="vertical">
 
