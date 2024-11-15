@@ -6,13 +6,13 @@
     android:background="@drawable/background_menu_item"
     android:layout_width="175dp"
     android:layout_height="280dp"
-    android:layout_margin="8dp"
+    android:layout_margin="10dp"
     android:elevation="3dp"
     tools:context=".User.MenuItemActivity">
 
 
     <ImageView
-        android:id="@+id/imageViewProduct"
+        android:id="@+id/product_image"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,10 +34,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewProduct" />
+        app:layout_constraintTop_toBottomOf="@+id/product_image" />
 
     <TextView
-        android:id="@+id/NameProduct"
+        android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,7 +52,7 @@
     </TextView>
 
     <TextView
-        android:id="@+id/price"
+        android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -61,12 +61,12 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/NameProduct">
+        app:layout_constraintTop_toBottomOf="@+id/product_name">
 
     </TextView>
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/product_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -75,7 +75,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price">
+        app:layout_constraintTop_toBottomOf="@+id/product_price">
     </TextView>
 
     <ImageView

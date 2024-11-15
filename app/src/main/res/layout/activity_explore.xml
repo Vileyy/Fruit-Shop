@@ -102,6 +102,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewSearchPopular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
