@@ -2,11 +2,13 @@ package com.example.fruit_shop.User;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,24 +22,16 @@ import com.example.fruit_shop.R;
 
 public class ProfileActivity extends AppCompatActivity {
     // Khai báo biến
-    private View Address;
-    private View Order;
-    private View Help;
-    private View Setting;
-    private View ProfileUser;
-    private View btnExplore;
-    private View btnProfile;
-    private View btnNotification;
-    private View btnHome;
+    private View Address, Order, Help, Setting, ProfileUser, btnExplore, btnProfile, btnNotification, btnHome;
     private LinearLayout Logout;
     private ImageView menuIcon;
+    private TextView nameUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -56,7 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.Profile);
         btnNotification = findViewById(R.id.Notification);
         btnHome = findViewById(R.id.Home);
+        nameUser = findViewById(R.id.NameUser);
 
+        // Set the user's name from SharedPreferences
+        String userName = getUserName();
+        nameUser.setText(userName);
 
         // Xử lý sự kiện
         Address.setOnClickListener(view -> {
@@ -84,17 +82,10 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //Xử lý sự kiện bottom navigation
-        // Xử lý sự kiện Explore
+        // Xử lý sự kiện bottom navigation
         btnExplore.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ExploreActivity.class)));
-
-        // Xử lý sự kiện Profile
         btnProfile.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ProfileActivity.class)));
-
-        // Xử lý sự kiện Notification
         btnNotification.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, NotificationActivity.class)));
-
-        // Xử lý sự kiện Home
         btnHome.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, HomeActivity.class)));
 
         // Xử lý sự kiện Đăng xuất
@@ -123,6 +114,12 @@ public class ProfileActivity extends AppCompatActivity {
             popupMenu.setOnMenuItemClickListener(item -> handleMenuItemClick(item.getItemId()));
             popupMenu.show();
         });
+    }
+
+    // Thêm phương thức lấy tên người dùng từ SharedPreferences
+    private String getUserName() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("userName", "Người dùng");
     }
 
     // Hàm xử lý sự kiện khi chọn item trong menu
@@ -157,7 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                     finish();
                 })
-                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss()) // Đóng dialog nếu chọn "Không"
+                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
                 .show();
     }
 }
