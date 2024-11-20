@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +8,10 @@
     tools:context=".User.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="90dp"
-        android:id="@+id/main">
+        android:layout_marginBottom="90dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -50,9 +49,9 @@
             android:drawableLeft="@drawable/icon_mail"
             android:drawablePadding="15dp"
             android:ems="10"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingLeft="15dp"
-            android:hint="Email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,13 +64,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:drawableLeft="@drawable/icon_password"
             android:background="@drawable/background_edittext"
+            android:drawableLeft="@drawable/icon_password"
             android:drawablePadding="15dp"
             android:ems="10"
+            android:hint="Password"
             android:inputType="textPassword"
             android:paddingLeft="15dp"
-            android:hint="Password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,17 +128,18 @@
             app:layout_constraintStart_toEndOf="@+id/btnGoogle"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:textSize="20sp"
+            android:background="@drawable/background_btn_login"
             android:fontFamily="@font/consolasligaturizedv3_bold"
             android:text="Đăng nhập"
-            android:background="@drawable/background_btn_login"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
@@ -152,10 +152,10 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/consolasligaturizedv3_bold"
+            android:onClick="goToSignUpPage"
             android:text="Bạn chưa có tài khoản ?"
             android:textColor="@color/green"
             android:textSize="20sp"
-            android:onClick="goToSignUpPage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />

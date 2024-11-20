@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Khi nút được nhấn -->
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#388E3C"/> <!-- Màu khi nhấn (darker green) -->
+            <corners android:radius="25dp"/> <!-- Bo góc -->
+        </shape>
+    </item>
+
+    <!-- Khi nút ở trạng thái bình thường -->
+    <item>
+        <shape>
+            <solid android:color="#4CAF50"/> <!-- Màu khi không nhấn (light green) -->
+            <corners android:radius="25dp"/> <!-- Bo góc -->
+        </shape>
+    </item>
+</selector>

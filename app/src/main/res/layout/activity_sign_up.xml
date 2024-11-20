@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +8,9 @@
     tools:context=".User.SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/main">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
@@ -44,12 +43,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:padding="10dp"
+            android:background="@drawable/background_edittext"
             android:drawableLeft="@drawable/icon_user"
             android:drawablePadding="15dp"
-            android:background="@drawable/background_edittext"
             android:hint="Tên người dùng"
             android:inputType="text"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -61,12 +60,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:padding="10dp"
+            android:background="@drawable/background_edittext"
             android:drawableLeft="@drawable/icon_mail"
             android:drawablePadding="15dp"
-            android:background="@drawable/background_edittext"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/NameUser" />
@@ -79,11 +78,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/background_edittext"
-            android:padding="10dp"
             android:drawableLeft="@drawable/icon_password"
             android:drawablePadding="15dp"
             android:hint="Mật khẩu"
             android:inputType="textPassword"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Email" />
@@ -95,26 +94,27 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/background_edittext"
             android:drawableLeft="@drawable/icon_confirmpass"
             android:drawablePadding="15dp"
-            android:background="@drawable/background_edittext"
             android:hint="Xác nhận mật khẩu"
-            android:padding="10dp"
             android:inputType="textPassword"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Password" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSignUp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:textSize="19sp"
-            android:text="Đăng ký"
             android:background="@drawable/background_btnsave"
+            android:text="Đăng ký"
+            android:textColor="@color/white"
+            android:textSize="19sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

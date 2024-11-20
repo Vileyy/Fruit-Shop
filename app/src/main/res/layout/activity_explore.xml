@@ -9,7 +9,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,12 +104,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewSearchPopular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    tools:listitem="@layout/activity_search_popular"/>
+                    tools:listitem="@layout/activity_search_popular" />
 
             </LinearLayout>
 
@@ -126,195 +130,196 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:scrollbars="none">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal">
 
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="4">
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="4">
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
 
-                    <LinearLayout
-                        android:layout_width="90dp"
-                        android:layout_height="140dp"
-                        android:layout_marginStart="6dp"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="90dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_fav6" />
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="140dp"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Ưu đãi tuần này"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-                </GridLayout>
-            </LinearLayout>
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="90dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/icon_fav6" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Ưu đãi tuần này"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
             </HorizontalScrollView>
 
         </LinearLayout>
     </ScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -326,12 +331,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/background_navigation"
+            android:layout_height="61dp"
             android:layout_gravity="center"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/background_navigation"
             android:padding="4dp">
 
             <LinearLayout

@@ -1,34 +1,27 @@
 package com.example.fruit_shop.Model;
 
 public class Product {
+
     private String name;
-    private int imageResId;
     private double price;
     private String location;
+    private int imageResId;  // Thay imageURL thành imageResId để lưu ID tài nguyên drawable
 
     // Constructor
-    public Product(String name, int imageResId, double price, String location) {
+    public Product(String name, double price, String location, int imageResId) {
         this.name = name;
-        this.imageResId = imageResId;
         this.price = price;
         this.location = location;
+        this.imageResId = imageResId;  // Khởi tạo imageResId
     }
 
-    // Getter and Setter
+    // Getter và Setter
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImageResId() {
-        return imageResId;
-    }
-
-    public void setImageResId(int imageResId) {
-        this.imageResId = imageResId;
     }
 
     public double getPrice() {
@@ -45,5 +38,13 @@ public class Product {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getImageResId() {  // Getter cho imageResId
+        return imageResId;
+    }
+
+    public void setImageResId(int imageResId) {  // Setter cho imageResId
+        this.imageResId = imageResId;
     }
 }

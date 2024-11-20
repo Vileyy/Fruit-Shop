@@ -1,0 +1,13 @@
+<!-- menu_items.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/profileuser"
+        android:title="Thông tin cá nhân"/>
+    <item android:id="@+id/order"
+        android:title="Giỏ hàng"/>
+    <item android:id="@+id/help"
+        android:title="Hỗ trợ"/>
+    <item android:id="@+id/settings"
+        android:title="Cài đặt"/>
+    <item android:id="@+id/logout"
+        android:title="Đăng xuất"/>
+</menu>

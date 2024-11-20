@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
@@ -16,31 +17,29 @@ import com.example.fruit_shop.R;
 
 public class AddressActivity extends AppCompatActivity {
 
+    private ImageView imgBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Enable edge-to-edge mode
         EdgeToEdge.enable(this);
-
         // Set the content view
         setContentView(R.layout.activity_address);
 
-        // Adjust padding to avoid overlapping with system bars (status bar, navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            // Get insets for system bars
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-            // Set padding to avoid content being obscured by system bars
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-
-            // Return insets to be applied
             return insets;
         });
 
-        // Find the Spinner views
+        // Ánh xạ
         Spinner provinceSpinner = findViewById(R.id.Province);
         Spinner citySpinner = findViewById(R.id.City);
+        imgBack = findViewById(R.id.imgBack);
+
+        // Xử lý sự kiện
+        imgBack.setOnClickListener(v -> finish());
 
         // Create an array of provinces and cities (these can be dynamic or come from an API)
         String[] provinces = {"Hà Nội", "Hồ Chí Minh", "Đà Nẵng", "Cần Thơ", "Bình Dương"};

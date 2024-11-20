@@ -37,7 +37,7 @@ public class SearchPopularAdapter extends RecyclerView.Adapter<SearchPopularAdap
 
     @Override
     public int getItemCount() {
-        return searchItems.size();  // Số lượng mục trong danh sách
+        return searchItems.size();
     }
 
     // ViewHolder giữ các view trong item
