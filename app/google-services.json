@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "175229397783",
+    "firebase_url": "https://apptraicay-d2762-default-rtdb.firebaseio.com",
+    "project_id": "apptraicay-d2762",
+    "storage_bucket": "apptraicay-d2762.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175229397783:android:d1b7439020107a9de2a552",
+        "android_client_info": {
+          "package_name": "com.example.fruit_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgPi_mfPyvZZkJjrEQivLf14084AFHPNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
