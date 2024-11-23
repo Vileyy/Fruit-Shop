@@ -1,32 +1,37 @@
 package com.example.fruit_shop.User;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.fruit_shop.Model.User;
 import com.example.fruit_shop.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText emailEditText;
+    private EditText emailEditText, NameEditText, ConfirmPasswordEditText;
     private EditText passwordEditText;
     private Button signUpButton;
-    private EditText nameEditText;
+    private DatabaseReference databaseRef;
+    private String userID;
+    private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,54 +48,64 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        databaseRef = FirebaseDatabase.getInstance().getReference();
 
         // Initialize views
         emailEditText = findViewById(R.id.Email);
         passwordEditText = findViewById(R.id.Password);
         signUpButton = findViewById(R.id.btnSignUp);
-        nameEditText = findViewById(R.id.NameUser);
+        NameEditText = findViewById(R.id.NameUser);
+        ConfirmPasswordEditText = findViewById(R.id.ConfirmPassword);
 
-        // Set onClick listener for the signup button
         signUpButton.setOnClickListener(view -> signUpUser());
     }
 
     private void signUpUser() {
+        String name = NameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        String userName = nameEditText.getText().toString().trim();
+        String confirmpassword = ConfirmPasswordEditText.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty() || userName.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Vui lòng nhập Email, mật khẩu và tên người dùng", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
+        if (email.isEmpty() || password.isEmpty() || name.isEmpty() || confirmpassword.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+        } else if (!password.equals(confirmpassword)) {
+            Toast.makeText(SignUpActivity.this, "Mật khẩu xác nhận không khớp!", Toast.LENGTH_SHORT).show();
+        } else {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        // Sign up success, update UI with the signed-in user's information
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            saveUserName(userName); // Lưu tên người dùng vào SharedPreferences
-                        }
-
+                        setUserData(name, email, password, confirmpassword);
                         Toast.makeText(SignUpActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-
-                        new Handler().postDelayed(() -> {
-                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }, 1000); // Delay 1 giây
                     } else {
-                        // If sign up fails, display a message to the user.
-                        Toast.makeText(SignUpActivity.this, "Đăng ký thất bại! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "Thất bại: " + task.getException());
+                        Toast.makeText(SignUpActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
+        }
     }
 
-    private void saveUserName(String userName) {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userName", userName); // Lưu tên người dùng vào SharedPreferences
-        editor.apply();
+    private void setUserData(String name, String email, String password, String confirmpassword) {
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        User user = new User(name, email, password, confirmpassword);
+
+        databaseRef.child("Users").child(userID).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    updateUI();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void updateUI() {
+        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
