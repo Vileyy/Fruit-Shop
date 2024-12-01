@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.fruit_shop.Adapter.ProductAdapter;
 import com.example.fruit_shop.Model.Product;
 import com.example.fruit_shop.R;
@@ -28,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
-    // Info
+
     private View btnExplore;
     private View btnProfile;
     private View btnNotification;
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private ImageView menuIcon, imagecat;
     private ArrayList<Product> productList;
+    private ImageSlider imgBanner;
 
     // Firebase
     private DatabaseReference databaseReference;
@@ -54,44 +58,33 @@ public class HomeActivity extends AppCompatActivity {
         menuIcon = findViewById(R.id.Menu); // Ánh xạ nút menu
         imagecat = findViewById(R.id.Cart);
         productAll = findViewById(R.id.product_all);
+        imgBanner = findViewById(R.id.imgBanner);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         fetchProductsFromFirebase();
 
-        imagecat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, OrderActivity.class));
-            }
-        });
-
+        // Xử lý sự kiện các nút
+        imagecat.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, OrderActivity.class)));
         productAll.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ProductAllActivity.class)));
-
-
-        // Xử lý sự kiện Explore
         btnExplore.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ExploreActivity.class)));
-
-        // Xử lý sự kiện Profile
         btnProfile.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ProfileActivity.class)));
-
-        // Xử lý sự kiện Notification
         btnNotification.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, OrderActivity.class)));
 
         // Xử lý sự kiện menu
         menuIcon.setOnClickListener(view -> {
-            // Tạo PopupMenu
             PopupMenu popupMenu = new PopupMenu(this, view);
-            popupMenu.getMenuInflater().inflate(R.menu.menu_items, popupMenu.getMenu()); // Gắn menu resource
-
-            // Xử lý sự kiện chọn item trong menu
+            popupMenu.getMenuInflater().inflate(R.menu.menu_items, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(item -> handleMenuItemClick(item.getItemId()));
             popupMenu.show();
         });
+
+        // Lấy dữ liệu Banner từ Firebase
+        fetchBannersFromFirebase();
     }
 
-    //lấy dữ liệu từ firebase
+    // Hàm lấy dữ liệu sản phẩm từ Firebase
     private void fetchProductsFromFirebase() {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Product");
         productList = new ArrayList<>();
@@ -121,6 +114,33 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(productAdapter);
     }
 
+    // Lấy dữ liệu Banners từ Firebase
+    private void fetchBannersFromFirebase() {
+        DatabaseReference bannersRef = FirebaseDatabase.getInstance().getReference("Banners");
+        ArrayList<SlideModel> imageList = new ArrayList<>();
+
+        // Fetch Banner data
+        bannersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    // Lấy dữ liệu Banner
+                    String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
+                    if (imageUrl != null) {
+                        imageList.add(new SlideModel(imageUrl, ScaleTypes.FIT));
+                    }
+                }
+
+                // Cập nhật ảnh vào ImageSlider
+                imgBanner.setImageList(imageList, ScaleTypes.FIT);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("HomeActivity", "Failed to fetch banners: " + error.getMessage());
+            }
+        });
+    }
 
     // Hàm xử lý sự kiện khi chọn item trong menu
     private boolean handleMenuItemClick(int itemId) {
@@ -164,8 +184,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                     finish();
                 })
-                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss()) // Đóng dialog nếu chọn "Không"
+                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
                 .show();
     }
-
 }
