@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 
     // Khai báo biến
-    private View Address, Order, Help, Setting, ProfileUser, btnExplore, btnProfile, btnNotification, btnHome;
+    private View Address, Order, Help, Setting, ProfileUser, btnExplore, btnProfile, btnShopingCart, btnHome;
     private LinearLayout Logout;
     private ImageView menuIcon;
     private TextView nameUser;
@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         // Ánh xạ các thành phần
-        Address = findViewById(R.id.Address);
+        Address = findViewById(R.id.HistoryCart);
         Order = findViewById(R.id.Order);
         Help = findViewById(R.id.Help);
         Setting = findViewById(R.id.Setting);
@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         menuIcon = findViewById(R.id.Menu);
         btnExplore = findViewById(R.id.Explore);
         btnProfile = findViewById(R.id.Profile);
-        btnNotification = findViewById(R.id.Notification);
+        btnShopingCart = findViewById(R.id.ShoppingCart);
         btnHome = findViewById(R.id.Home);
         nameUser = findViewById(R.id.NameUser);
 
@@ -108,14 +108,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     // Xử lý sự kiện
     private void setupEventHandlers() {
-        Address.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, AddressActivity.class)));
+        Address.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, HistoryCartActivity.class)));
         Order.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, OrderActivity.class)));
         Help.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, HelpActivity.class)));
         Setting.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, SettingActivity.class)));
         ProfileUser.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, ProfileUser.class)));
         btnExplore.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ExploreActivity.class)));
         btnProfile.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ProfileActivity.class)));
-        btnNotification.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, NotificationActivity.class)));
+        btnShopingCart.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, OrderActivity.class)));
         btnHome.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, HomeActivity.class)));
 
         // Xử lý sự kiện Đăng xuất

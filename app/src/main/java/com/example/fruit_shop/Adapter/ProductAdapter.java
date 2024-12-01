@@ -15,17 +15,17 @@ import com.bumptech.glide.Glide;
 import com.example.fruit_shop.Model.Product;
 import com.example.fruit_shop.R;
 import com.example.fruit_shop.User.ProductDetailActivity;
+import com.example.fruit_shop.Utils.FormatValues;
 
-import java.text.DecimalFormat;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private Context context;
-    private List<Product> productList;
+    private ArrayList<Product> productList;
 
     // Constructor
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductAdapter(Context context, ArrayList<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -40,27 +40,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.productName.setText(product.getName());
-
-        // Convert price to VND and format it
-        String priceInVND = formatCurrency(product.getPrice());
-        holder.productPrice.setText(priceInVND);
-
-        holder.productLocation.setText(product.getLocation());
+        holder.productName.setText(product.getProductName());
+        holder.productPrice.setText(FormatValues.formatMoney(product.getPrice()));
+        holder.productRating.setText(product.getRating());
 
         // Use Glide to load image from drawable resource
         Glide.with(context)
-                .load(product.getImageResId())  // Load image from drawable resource ID
+                .load(product.getImageUrl())
                 .into(holder.productImage);
 
-        // Handle item click event
+
         holder.itemView.setOnClickListener(v -> {
-            // Create Intent to navigate to Product Detail screen
+
             Intent intent = new Intent(context, ProductDetailActivity.class);
-            intent.putExtra("productImageResId", product.getImageResId()); // Pass image resource ID
-            intent.putExtra("productName", product.getName());  // Pass product name
-            intent.putExtra("productPrice", priceInVND); // Pass formatted price
-            intent.putExtra("productLocation", product.getLocation()); // Pass product location
+            intent.putExtra("ProductInfo", product);
+
             context.startActivity(intent); // Start activity
         });
     }
@@ -70,22 +64,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    // Method to format price as currency in VND
-    private String formatCurrency(double price) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        return decimalFormat.format(price) + "đ";  // Append "đ" to denote Vietnamese Dong
-    }
-
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice, productLocation;
+        TextView productName, productPrice, productRating, description;
         ImageView productImage;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.product_name);
             productPrice = itemView.findViewById(R.id.product_price);
-            productLocation = itemView.findViewById(R.id.product_location);
+            productRating = itemView.findViewById(R.id.product_rating);
             productImage = itemView.findViewById(R.id.product_image);
+            //description = itemView.findViewById(R.id.productDescription);
         }
     }
 }

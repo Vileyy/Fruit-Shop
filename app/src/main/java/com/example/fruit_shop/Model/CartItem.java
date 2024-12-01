@@ -2,11 +2,11 @@ package com.example.fruit_shop.Model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class CartItem implements Serializable {
     private String productCode;      // Mã sản phẩm (dựa trên id sản phẩm Firebase)
     private String productName;      // Tên sản phẩm
     private String category;         // Danh mục
-    private String stockQuantity;    // Số lượng tồn kho
+    private Integer stockQuantity;    // Số lượng tồn kho
     private double price;            // Giá gốc
     private double discountPrice;    // Giá sau giảm giá
     private String discountCode;     // Mã giảm giá
@@ -15,15 +15,10 @@ public class Product implements Serializable {
     private String edtDescription;   // Mô tả sản phẩm
     private String rating;           // Số sao (đánh giá)
 
-    // Constructor không tham số cần thiết cho Firebase
-    public Product() {
-        // Firebase yêu cầu constructor không tham số
+    public CartItem() {
     }
 
-    // Constructor có tham số để khởi tạo đối tượng Product
-    public Product(String productCode, String productName, String category,
-                   String stockQuantity, double price, double discountPrice,
-                   String discountCode, String dateIn, String imageUrl, String edtDescription, String rating) {
+    public CartItem(String productCode, String productName, String category, Integer stockQuantity, double price, double discountPrice, String discountCode, String dateIn, String imageUrl, String edtDescription, String rating) {
         this.productCode = productCode;
         this.productName = productName;
         this.category = category;
@@ -34,11 +29,8 @@ public class Product implements Serializable {
         this.dateIn = dateIn;
         this.imageUrl = imageUrl;
         this.edtDescription = edtDescription;
-        this.rating = rating; // Khởi tạo giá trị rating
+        this.rating = rating;
     }
-
-
-    // Getter và Setter cho các trường dữ liệu
 
     public String getProductCode() {
         return productCode;
@@ -64,11 +56,11 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public String getStockQuantity() {
+    public Integer getStockQuantity() {
         return stockQuantity;
     }
 
-    public void setStockQuantity(String stockQuantity) {
+    public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
 
@@ -120,7 +112,6 @@ public class Product implements Serializable {
         this.edtDescription = edtDescription;
     }
 
-    // Getter và Setter cho rating
     public String getRating() {
         return rating;
     }
@@ -129,10 +120,9 @@ public class Product implements Serializable {
         this.rating = rating;
     }
 
-    // Phương thức toString để hiển thị thông tin đối tượng
     @Override
     public String toString() {
-        return "Product{" +
+        return "CartItem{" +
                 "productCode='" + productCode + '\'' +
                 ", productName='" + productName + '\'' +
                 ", category='" + category + '\'' +

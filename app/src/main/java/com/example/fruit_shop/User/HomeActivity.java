@@ -3,11 +3,14 @@ package com.example.fruit_shop.User;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,19 +19,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fruit_shop.Adapter.ProductAdapter;
 import com.example.fruit_shop.Model.Product;
 import com.example.fruit_shop.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-
+    // Info
     private View btnExplore;
     private View btnProfile;
     private View btnNotification;
+    private TextView productAll;
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
-    private List<Product> productList;
-    private ImageView menuIcon; // Tham chiếu đến ImageView nút menu
+    private ImageView menuIcon, imagecat;
+    private ArrayList<Product> productList;
+
+    // Firebase
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,25 +49,26 @@ public class HomeActivity extends AppCompatActivity {
         // Ánh xạ các thành phần
         btnExplore = findViewById(R.id.Explore);
         btnProfile = findViewById(R.id.Profile);
-        btnNotification = findViewById(R.id.Notification);
+        btnNotification = findViewById(R.id.ShoppingCart);
         recyclerView = findViewById(R.id.recyclerViewProducts);
         menuIcon = findViewById(R.id.Menu); // Ánh xạ nút menu
+        imagecat = findViewById(R.id.Cart);
+        productAll = findViewById(R.id.product_all);
 
-        // Khởi tạo danh sách sản phẩm mẫu
-        productList = new ArrayList<>();
-        productList.add(new Product("Apple", 10000.0, "TP.HCM", R.drawable.item_1));
-        productList.add(new Product("Banana", 5000.0, "TP.HCM", R.drawable.item_1));
-        productList.add(new Product("Orange", 7000.0, "TP.HCM", R.drawable.item_1));
-        productList.add(new Product("Grapes", 12000.0, "TP.HCM", R.drawable.item_1));
-
-
-        // Thiết lập GridLayoutManager với 2 cột
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Tạo và gán Adapter cho RecyclerView
-        productAdapter = new ProductAdapter(this, productList);
-        recyclerView.setAdapter(productAdapter);
+        fetchProductsFromFirebase();
+
+        imagecat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, OrderActivity.class));
+            }
+        });
+
+        productAll.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ProductAllActivity.class)));
+
 
         // Xử lý sự kiện Explore
         btnExplore.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ExploreActivity.class)));
@@ -65,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, ProfileActivity.class)));
 
         // Xử lý sự kiện Notification
-        btnNotification.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, NotificationActivity.class)));
+        btnNotification.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, OrderActivity.class)));
 
         // Xử lý sự kiện menu
         menuIcon.setOnClickListener(view -> {
@@ -78,6 +90,37 @@ public class HomeActivity extends AppCompatActivity {
             popupMenu.show();
         });
     }
+
+    //lấy dữ liệu từ firebase
+    private void fetchProductsFromFirebase() {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Product");
+        productList = new ArrayList<>();
+
+        // Fetch data
+        databaseReference.limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Get each item and add to list
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Product productInfo = dataSnapshot.getValue(Product.class);
+                    productList.add(productInfo);
+                }
+
+                showProducts();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Load Data", "onCancelled: Failed" + error.getMessage());
+            }
+        });
+    }
+
+    private void showProducts() {
+        productAdapter = new ProductAdapter(this, productList);
+        recyclerView.setAdapter(productAdapter);
+    }
+
 
     // Hàm xử lý sự kiện khi chọn item trong menu
     private boolean handleMenuItemClick(int itemId) {

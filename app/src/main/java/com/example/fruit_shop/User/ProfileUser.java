@@ -1,25 +1,24 @@
 package com.example.fruit_shop.User;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fruit_shop.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileUser extends AppCompatActivity {
 
@@ -27,7 +26,6 @@ public class ProfileUser extends AppCompatActivity {
     private EditText nameEditText, phoneEditText, emailEditText;
     private Spinner genderSpinner;
     private Button btnSave;
-    private TextView titleTextView;
 
     private DatabaseReference userDatabaseRef;
 
@@ -43,7 +41,6 @@ public class ProfileUser extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextEmail);
         genderSpinner = findViewById(R.id.spinnerGender);
         btnSave = findViewById(R.id.btnSave);
-        titleTextView = findViewById(R.id.textView14);
 
         // Khởi tạo Firebase Database reference
         userDatabaseRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -71,7 +68,6 @@ public class ProfileUser extends AppCompatActivity {
         // Xử lý sự kiện khi người dùng nhấn nút "Lưu"
         btnSave.setOnClickListener(v -> {
             if (userId != null) {
-                // Khi người dùng nhấn lưu, bạn cần lưu lại thông tin đã thay đổi
                 saveUserInfo(userId);
             } else {
                 Toast.makeText(ProfileUser.this, "Lỗi người dùng không hợp lệ", Toast.LENGTH_SHORT).show();
@@ -132,8 +128,8 @@ public class ProfileUser extends AppCompatActivity {
             userDatabaseRef.child(userId).child("phone").setValue(updatedPhone);
             userDatabaseRef.child(userId).child("email").setValue(updatedEmail);
             userDatabaseRef.child(userId).child("gender").setValue(updatedGender);
-
             Toast.makeText(ProfileUser.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ProfileUser.this, ProfileActivity.class));
         }
     }
 }

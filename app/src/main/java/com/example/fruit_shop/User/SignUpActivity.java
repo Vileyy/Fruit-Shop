@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setUserData(String name, String email, String password, String confirmpassword) {
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        User user = new User(name, email, password, confirmpassword);
+        User user = new User(name, email, password, confirmpassword, null, null);
 
         databaseRef.child("Users").child(userID).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

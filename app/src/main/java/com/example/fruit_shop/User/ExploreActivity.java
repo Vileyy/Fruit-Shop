@@ -48,7 +48,7 @@ public class ExploreActivity extends AppCompatActivity {
         menuIcon = findViewById(R.id.Menu);
         btnExplore = findViewById(R.id.Explore);
         btnProfile = findViewById(R.id.Profile);
-        btnNotification = findViewById(R.id.Notification);
+        btnNotification = findViewById(R.id.ShoppingCart);
         btnHome = findViewById(R.id.Home);
 
         //Xử lý sự kiện bottom navigation
@@ -59,7 +59,7 @@ public class ExploreActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, ProfileActivity.class)));
 
         // Xử lý sự kiện Notification
-        btnNotification.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, NotificationActivity.class)));
+        btnNotification.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, OrderActivity.class)));
 
         // Xử lý sự kiện Home
         btnHome.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, HomeActivity.class)));
