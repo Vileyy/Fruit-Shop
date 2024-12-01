@@ -1,6 +1,6 @@
 package com.example.fruit_shop.User;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -20,10 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class ProfileUser extends AppCompatActivity {
 
     private ImageView imgBack;
-    private EditText nameEditText, phoneEditText, emailEditText;
+    private EditText nameEditText, phoneEditText, emailEditText, editTextBirthday;
     private Spinner genderSpinner;
     private Button btnSave;
 
@@ -40,6 +42,7 @@ public class ProfileUser extends AppCompatActivity {
         phoneEditText = findViewById(R.id.editTextNumberPhone);
         emailEditText = findViewById(R.id.editTextEmail);
         genderSpinner = findViewById(R.id.spinnerGender);
+        editTextBirthday = findViewById(R.id.editTextBirthday);
         btnSave = findViewById(R.id.btnSave);
 
         // Khởi tạo Firebase Database reference
@@ -65,6 +68,9 @@ public class ProfileUser extends AppCompatActivity {
         // Xử lý sự kiện khi người dùng nhấn nút "Quay lại"
         imgBack.setOnClickListener(v -> finish());
 
+        // Xử lý sự kiện khi người dùng nhấn vào trường ngày sinh
+        editTextBirthday.setOnClickListener(v -> showDatePickerDialog());
+
         // Xử lý sự kiện khi người dùng nhấn nút "Lưu"
         btnSave.setOnClickListener(v -> {
             if (userId != null) {
@@ -73,6 +79,22 @@ public class ProfileUser extends AppCompatActivity {
                 Toast.makeText(ProfileUser.this, "Lỗi người dùng không hợp lệ", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // Hàm hiển thị DatePickerDialog
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+            // Cập nhật trường ngày sinh
+            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+            editTextBirthday.setText(selectedDate);
+        }, year, month, day);
+
+        datePickerDialog.show();
     }
 
     // Hàm lấy thông tin người dùng từ Firebase
@@ -86,11 +108,13 @@ public class ProfileUser extends AppCompatActivity {
                     String phone = dataSnapshot.child("phone").getValue(String.class);
                     String email = dataSnapshot.child("email").getValue(String.class);
                     String gender = dataSnapshot.child("gender").getValue(String.class);
+                    String birthday = dataSnapshot.child("birthday").getValue(String.class);
 
                     // Hiển thị thông tin vào các EditText và Spinner
                     nameEditText.setText(name);
                     phoneEditText.setText(phone);
                     emailEditText.setText(email);
+                    editTextBirthday.setText(birthday);
 
                     // Set giới tính trong Spinner
                     if ("Nam".equals(gender)) {
@@ -118,9 +142,10 @@ public class ProfileUser extends AppCompatActivity {
         String updatedPhone = phoneEditText.getText().toString();
         String updatedEmail = emailEditText.getText().toString();
         String updatedGender = genderSpinner.getSelectedItem().toString();
+        String updatedBirthday = editTextBirthday.getText().toString();
 
         // Kiểm tra tính hợp lệ của thông tin người dùng
-        if (TextUtils.isEmpty(updatedName) || TextUtils.isEmpty(updatedPhone) || TextUtils.isEmpty(updatedEmail)) {
+        if (TextUtils.isEmpty(updatedName) || TextUtils.isEmpty(updatedPhone) || TextUtils.isEmpty(updatedEmail) || TextUtils.isEmpty(updatedBirthday)) {
             Toast.makeText(ProfileUser.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         } else {
             // Cập nhật thông tin người dùng vào Firebase
@@ -128,8 +153,8 @@ public class ProfileUser extends AppCompatActivity {
             userDatabaseRef.child(userId).child("phone").setValue(updatedPhone);
             userDatabaseRef.child(userId).child("email").setValue(updatedEmail);
             userDatabaseRef.child(userId).child("gender").setValue(updatedGender);
+            userDatabaseRef.child(userId).child("birthday").setValue(updatedBirthday);
             Toast.makeText(ProfileUser.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(ProfileUser.this, ProfileActivity.class));
         }
     }
 }

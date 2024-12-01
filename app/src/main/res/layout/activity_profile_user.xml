@@ -43,7 +43,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="600dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/linearLayout4"
@@ -154,7 +154,7 @@
                         android:layout_margin="10dp"
                         android:text="Giới tính"
                         android:textColor="@color/black"
-                        android:textSize="15dp" />
+                        android:textSize="17dp" />
 
                     <Spinner
                         android:id="@+id/spinnerGender"
@@ -164,20 +164,54 @@
                         android:layout_marginEnd="10dp" />
                 </LinearLayout>
 
+                <!-- Ngày Sinh -->
+                <LinearLayout
+                    android:id="@+id/editBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_margin="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/background_edittext"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editGender">
+
+                    <TextView
+                        android:id="@+id/textViewBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày sinh"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <EditText
+                        android:id="@+id/editTextBirthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Chọn ngày sinh"
+                        android:focusable="false"
+                        android:inputType="none" />
+                </LinearLayout>
+
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSave"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="44dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="32dp"
                     android:background="@drawable/background_btnsave"
                     android:text="Lưu"
                     android:textColor="@color/white"
                     android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editGender" />
+                    app:layout_constraintTop_toBottomOf="@+id/editBirthday" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
