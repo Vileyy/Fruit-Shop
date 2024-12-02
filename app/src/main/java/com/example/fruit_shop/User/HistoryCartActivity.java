@@ -70,7 +70,7 @@ public class HistoryCartActivity extends AppCompatActivity {
     private void retrieveBuyHistory() {
         binding.recentBuyItem.setVisibility(View.INVISIBLE);
         userID = auth.getCurrentUser().getUid();
-        DatabaseReference buyItemRef = database.getReference().child("Users").child(userID).child("BuyHistory");
+        DatabaseReference buyItemRef = database.getReference().child("OrderDetails");
         listOfOrderItem = new ArrayList<>();
 
         // Sort by currentTime
@@ -82,7 +82,11 @@ public class HistoryCartActivity extends AppCompatActivity {
                 // Get data from firebase and add to list
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     OrderDetail buyHistoryItem = dataSnapshot.getValue(OrderDetail.class);
-                    listOfOrderItem.add(buyHistoryItem);
+                    if (buyHistoryItem != null && buyHistoryItem.getUserUid() != null) {
+                        if (buyHistoryItem.getUserUid().equals(userID)) {
+                            listOfOrderItem.add(buyHistoryItem);
+                        }
+                    }
                 }
 
                 // Item at the end is the latest order so we need to reverse the list
@@ -163,15 +167,12 @@ public class HistoryCartActivity extends AppCompatActivity {
 
     private void updateOrderStatus() {
         String itemPushKey = listOfOrderItem.get(0).getItemPushKey();
-        DatabaseReference historyOrderRef = database.getReference().child("Users").child(userID).child("BuyHistory").child(itemPushKey);
-        DatabaseReference completeOrderRef = database.getReference().child("CompletedOrders").child(itemPushKey);
+        DatabaseReference completeOrderRef = database.getReference().child("OrderDetails").child(itemPushKey);
         completeOrderRef.child("paymentReceived").setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-
-                historyOrderRef.child("paymentReceived").setValue(true);
                 binding.receivedButton.setVisibility(View.INVISIBLE);
-                Toast.makeText(HistoryCartActivity.this, "Chúc bạn ngon miệng (●'◡'●)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HistoryCartActivity.this, "Chúc bạn một ngày mới tốt lành", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -64,6 +64,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
+    // Method to update the product list when search occurs
+    public void updateProductList(ArrayList<Product> newList) {
+        this.productList = newList;
+        notifyDataSetChanged();
+    }
+
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView productName, productPrice, productRating, description;
         ImageView productImage;

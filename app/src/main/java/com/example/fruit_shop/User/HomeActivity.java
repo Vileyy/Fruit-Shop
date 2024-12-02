@@ -3,8 +3,11 @@ package com.example.fruit_shop.User;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -28,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -39,8 +43,9 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ImageView menuIcon, imagecat;
-    private ArrayList<Product> productList;
+    private ArrayList<Product> productList, filteredList;
     private ImageSlider imgBanner;
+    private EditText searchEditText;
 
     // Firebase
     private DatabaseReference databaseReference;
@@ -55,10 +60,11 @@ public class HomeActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.Profile);
         btnNotification = findViewById(R.id.ShoppingCart);
         recyclerView = findViewById(R.id.recyclerViewProducts);
-        menuIcon = findViewById(R.id.Menu); // Ánh xạ nút menu
+        menuIcon = findViewById(R.id.Menu);
         imagecat = findViewById(R.id.Cart);
         productAll = findViewById(R.id.product_all);
         imgBanner = findViewById(R.id.imgBanner);
+        searchEditText = findViewById(R.id.searchEditText);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -82,6 +88,45 @@ public class HomeActivity extends AppCompatActivity {
 
         // Lấy dữ liệu Banner từ Firebase
         fetchBannersFromFirebase();
+
+        // Thêm chức năng tìm kiếm
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String query = charSequence.toString().trim();
+                searchProducts(query);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    // Hàm loại bỏ dấu
+    private String removeAccents(String str) {
+        String normalizedStr = Normalizer.normalize(str, Normalizer.Form.NFD);
+        return normalizedStr.replaceAll("\\p{M}", ""); // Loại bỏ các dấu (diacritics)
+    }
+
+    // Hàm tìm kiếm sản phẩm
+    private void searchProducts(String query) {
+        filteredList = new ArrayList<>();
+        // Loại bỏ dấu trong chuỗi tìm kiếm của người dùng
+        String queryWithoutAccents = removeAccents(query.toLowerCase());
+
+        for (Product product : productList) {
+            // Loại bỏ dấu trong tên sản phẩm
+            String productNameWithoutAccents = removeAccents(product.getProductName().toLowerCase());
+
+            // Kiểm tra nếu tên sản phẩm chứa chuỗi tìm kiếm (không phân biệt dấu)
+            if (productNameWithoutAccents.contains(queryWithoutAccents)) {
+                filteredList.add(product);
+            }
+        }
+        productAdapter.updateProductList(filteredList);
     }
 
     // Hàm lấy dữ liệu sản phẩm từ Firebase
@@ -90,15 +135,13 @@ public class HomeActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         // Fetch data
-        databaseReference.limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Get each item and add to list
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Product productInfo = dataSnapshot.getValue(Product.class);
                     productList.add(productInfo);
                 }
-
                 showProducts();
             }
 
@@ -119,19 +162,15 @@ public class HomeActivity extends AppCompatActivity {
         DatabaseReference bannersRef = FirebaseDatabase.getInstance().getReference("Banners");
         ArrayList<SlideModel> imageList = new ArrayList<>();
 
-        // Fetch Banner data
         bannersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    // Lấy dữ liệu Banner
                     String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
                     if (imageUrl != null) {
                         imageList.add(new SlideModel(imageUrl, ScaleTypes.FIT));
                     }
                 }
-
-                // Cập nhật ảnh vào ImageSlider
                 imgBanner.setImageList(imageList, ScaleTypes.FIT);
             }
 
@@ -142,7 +181,6 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm xử lý sự kiện khi chọn item trong menu
     private boolean handleMenuItemClick(int itemId) {
         if (itemId == R.id.order) {
             startActivity(new Intent(HomeActivity.this, OrderActivity.class));
@@ -164,23 +202,16 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    // Phương thức xử lý đăng xuất
     private void logoutUser() {
-        // Tạo AlertDialog để xác nhận
         new AlertDialog.Builder(this)
                 .setTitle("Xác nhận đăng xuất")
                 .setMessage("Bạn có chắc chắn muốn đăng xuất?")
                 .setPositiveButton("Có", (dialog, which) -> {
-                    // Xóa thông tin đăng nhập trong SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.clear();
                     editor.apply();
-
-                    // Hiển thị thông báo
                     Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
-
-                    // Chuyển về màn hình đăng nhập
                     startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                     finish();
                 })

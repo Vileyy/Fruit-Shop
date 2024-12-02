@@ -103,22 +103,11 @@ public class PayActivity extends AppCompatActivity {
                 BottomSheetDialogFragment congratsBottomSheet = new CongratsBottomSheetFragment();
                 congratsBottomSheet.show(getSupportFragmentManager(), "CongratsBottomSheet");
                 removeItemFromCart();
-                addOrderToHistory(orderDetail);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(PayActivity.this, "Đặt hàng thất bại", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void addOrderToHistory(OrderDetail orderDetail) {
-        DatabaseReference historyRef = databaseRef.child("Users").child(userID).child("BuyHistory").child(orderDetail.getItemPushKey());
-        historyRef.setValue(orderDetail).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Update data", "onFailure: Failed" + e.getMessage());
             }
         });
     }
