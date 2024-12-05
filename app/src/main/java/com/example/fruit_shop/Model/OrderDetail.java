@@ -16,6 +16,10 @@ public class OrderDetail implements Serializable {
     private Boolean paymentReceived = false;
     private String itemPushKey;
     private Long currentTime = 0L;
+    private Boolean statusPending; // Thêm trường statusPending
+    private Boolean successfulDelivery;
+
+
 
     protected OrderDetail(Parcel in) {
         userUid = in.readString();
@@ -33,7 +37,20 @@ public class OrderDetail implements Serializable {
         } else {
             currentTime = in.readLong();
         }
+        // Đọc giá trị của statusPending từ Parcel
+        if (in.readByte() == 0) {
+            statusPending = null;
+        } else {
+            statusPending = in.readByte() == 1; // 1 cho true, 0 cho false
+        }
+        // Đọc giá trị của statusPending từ Parcel
+        if (in.readByte() == 0) {
+            successfulDelivery = null;
+        } else {
+            successfulDelivery = in.readByte() == 1; // 1 cho true, 0 cho false
+        }
     }
+
 
     public OrderDetail() {
     }
@@ -49,6 +66,26 @@ public class OrderDetail implements Serializable {
         this.paymentReceived = paymentReceived;
         this.itemPushKey = itemPushKey;
         this.currentTime = currentTime;
+        this.statusPending = false; // Giá trị mặc định là false
+        this.successfulDelivery = false;
+    }
+
+
+
+
+    public  Boolean getSuccessfulDelivery() {
+        return successfulDelivery;
+    }
+    public void setSuccessfulDelivery(Boolean successfulDelivery) {
+        this.successfulDelivery = successfulDelivery;
+    }
+    // Getter và Setter cho statusPending
+    public void setStatusPending(Boolean statusPending) {
+        this.statusPending = statusPending;
+    }
+
+    public Boolean getStatusPending() {
+        return statusPending;
     }
 
     public void setUserUid(String userUid) {
@@ -144,6 +181,37 @@ public class OrderDetail implements Serializable {
                 ", paymentReceived=" + paymentReceived +
                 ", itemPushKey='" + itemPushKey + '\'' +
                 ", currentTime=" + currentTime +
+                ", statusPending=" + statusPending + // In thêm statusPending
+                ", successfulDelivery=" + successfulDelivery + // In thêm successfulDelivery
                 '}';
     }
+
+    // Viết lại hàm viết Parcel cho statusPending
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userUid);
+        dest.writeString(userName);
+        dest.writeString(address);
+        dest.writeString(phoneNumber);
+        dest.writeString(totalPrice);
+        dest.writeByte((byte) (orderAccepted == null ? 0 : orderAccepted ? 1 : 2));
+        dest.writeByte((byte) (paymentReceived == null ? 0 : paymentReceived ? 1 : 2));
+        dest.writeString(itemPushKey);
+        if (currentTime == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(currentTime);
+        }
+        if (statusPending == null) {
+            dest.writeByte((byte) 0);  // null
+        } else {
+            dest.writeByte((byte) (statusPending ? 1 : 2));  // true or false
+        }
+        if (successfulDelivery == null) {
+            dest.writeByte((byte) 0);  // null
+        } else {
+            dest.writeByte((byte) (successfulDelivery ? 1 : 2));  // true or false
+        }
+    }
+
 }

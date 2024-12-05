@@ -56,7 +56,6 @@ public class ProfileActivity extends AppCompatActivity {
         Logout = findViewById(R.id.Logout);
         menuIcon = findViewById(R.id.Menu);
         btnExplore = findViewById(R.id.Explore);
-        btnProfile = findViewById(R.id.Profile);
         btnShopingCart = findViewById(R.id.ShoppingCart);
         btnHome = findViewById(R.id.Home);
         nameUser = findViewById(R.id.NameUser);
@@ -114,7 +113,6 @@ public class ProfileActivity extends AppCompatActivity {
         Setting.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, SettingActivity.class)));
         ProfileUser.setOnClickListener(view -> startActivity(new Intent(ProfileActivity.this, ProfileUser.class)));
         btnExplore.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ExploreActivity.class)));
-        btnProfile.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, ProfileActivity.class)));
         btnShopingCart.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, OrderActivity.class)));
         btnHome.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, HomeActivity.class)));
 

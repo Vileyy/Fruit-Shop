@@ -80,7 +80,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         binding.DetailsDescription.setText(edtDescription);
         binding.DetailsPrice.setText(FormatValues.formatMoney(price));
        // binding.DetailsQuantity.setText(stockQuantity);
-        binding.DetailsRating.setText("Đánh giá" +" "+ rating);
+        //binding.DetailsRating.setText("Đánh giá" +" "+ rating);
 
         Glide.with(this).load(imageUrl).into(binding.DetailsImage);
 

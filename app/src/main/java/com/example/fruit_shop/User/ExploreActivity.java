@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -37,31 +36,18 @@ public class ExploreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Kích hoạt Edge-to-Edge cho Activity
-        EdgeToEdge.enable(this);
-
         // Đặt layout cho activity
         setContentView(R.layout.activity_explore);
 
         // Ánh xạ các thành phần
         recyclerView = findViewById(R.id.recyclerViewSearchPopular);
         menuIcon = findViewById(R.id.Menu);
-        btnExplore = findViewById(R.id.Explore);
         btnProfile = findViewById(R.id.Profile);
         btnNotification = findViewById(R.id.ShoppingCart);
         btnHome = findViewById(R.id.Home);
 
-        //Xử lý sự kiện bottom navigation
-        // Xử lý sự kiện Explore
-        btnExplore.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, ExploreActivity.class)));
-
-        // Xử lý sự kiện Profile
         btnProfile.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, ProfileActivity.class)));
-
-        // Xử lý sự kiện Notification
         btnNotification.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, OrderActivity.class)));
-
-        // Xử lý sự kiện Home
         btnHome.setOnClickListener(v -> startActivity(new Intent(ExploreActivity.this, HomeActivity.class)));
 
         // Tạo danh sách các mục tìm kiếm phổ biến

@@ -1,6 +1,7 @@
 package com.example.fruit_shop.User;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 public class ProfileUser extends AppCompatActivity {
 
     private ImageView imgBack;
-    private EditText nameEditText, phoneEditText, emailEditText, editTextBirthday;
+    private EditText nameEditText, phoneEditText, emailEditText, editTextBirthday, editTextAddress;
     private Spinner genderSpinner;
     private Button btnSave;
 
@@ -43,6 +44,7 @@ public class ProfileUser extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextEmail);
         genderSpinner = findViewById(R.id.spinnerGender);
         editTextBirthday = findViewById(R.id.editTextBirthday);
+        editTextAddress = findViewById(R.id.editTextAddress);
         btnSave = findViewById(R.id.btnSave);
 
         // Khởi tạo Firebase Database reference
@@ -109,12 +111,14 @@ public class ProfileUser extends AppCompatActivity {
                     String email = dataSnapshot.child("email").getValue(String.class);
                     String gender = dataSnapshot.child("gender").getValue(String.class);
                     String birthday = dataSnapshot.child("birthday").getValue(String.class);
+                    String address = dataSnapshot.child("address").getValue(String.class);
 
                     // Hiển thị thông tin vào các EditText và Spinner
                     nameEditText.setText(name);
                     phoneEditText.setText(phone);
                     emailEditText.setText(email);
                     editTextBirthday.setText(birthday);
+                    editTextAddress.setText(address);
 
                     // Set giới tính trong Spinner
                     if ("Nam".equals(gender)) {
@@ -143,6 +147,7 @@ public class ProfileUser extends AppCompatActivity {
         String updatedEmail = emailEditText.getText().toString();
         String updatedGender = genderSpinner.getSelectedItem().toString();
         String updatedBirthday = editTextBirthday.getText().toString();
+        String updatedAddress = editTextAddress.getText().toString();
 
         // Kiểm tra tính hợp lệ của thông tin người dùng
         if (TextUtils.isEmpty(updatedName) || TextUtils.isEmpty(updatedPhone) || TextUtils.isEmpty(updatedEmail) || TextUtils.isEmpty(updatedBirthday)) {
@@ -154,7 +159,10 @@ public class ProfileUser extends AppCompatActivity {
             userDatabaseRef.child(userId).child("email").setValue(updatedEmail);
             userDatabaseRef.child(userId).child("gender").setValue(updatedGender);
             userDatabaseRef.child(userId).child("birthday").setValue(updatedBirthday);
+            userDatabaseRef.child(userId).child("address").setValue(updatedAddress);
+
             Toast.makeText(ProfileUser.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(ProfileUser.this, ProfileActivity.class));
         }
     }
 }

@@ -76,6 +76,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/product_price" />
 
             <ImageView
+                android:id="@+id/star1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/star_full"
+                app:layout_constraintBottom_toBottomOf="@+id/product_rating"
+                app:layout_constraintStart_toEndOf="@+id/product_rating" />
+
+            <ImageView
                 android:id="@+id/imgCart"
                 android:layout_width="25dp"
                 android:layout_height="30dp"

@@ -31,10 +31,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/consolasligaturizedv3"
-            android:text="Edit"
-            android:textStyle="bold"
+            android:text="Thanh toán"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backButton" />
@@ -165,6 +165,17 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:paddingEnd="32dp"
+                android:text="Tiền mặt"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -211,13 +222,13 @@
         android:id="@+id/buttonPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đặt hàng"
-        android:textSize="18sp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/black"
-        android:background="@drawable/button_buy"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/button_buy"
+        android:text="Đặt hàng"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

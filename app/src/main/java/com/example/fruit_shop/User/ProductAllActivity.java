@@ -50,7 +50,7 @@ public class ProductAllActivity extends AppCompatActivity {
         productList = new ArrayList<>();
 
         // Fetch data
-        databaseReference.limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Get each item and add to list

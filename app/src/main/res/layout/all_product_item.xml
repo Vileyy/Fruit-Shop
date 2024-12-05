@@ -73,6 +73,14 @@
                 app:layout_constraintStart_toStartOf="@+id/AllProductName"
                 app:layout_constraintTop_toBottomOf="@+id/AllProductName" />
 
+            <ImageView
+                android:id="@+id/star1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/star_full"
+                app:layout_constraintBottom_toBottomOf="@+id/AllProductRating"
+                app:layout_constraintStart_toEndOf="@+id/AllProductRating" />
+
             <TextView
                 android:id="@+id/AllProductPrice"
                 android:layout_width="wrap_content"

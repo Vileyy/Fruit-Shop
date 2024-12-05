@@ -139,20 +139,96 @@
                     android:padding="4dp"
                     android:text="Xem tất cả"
                     android:textColor="@color/green"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewProducts"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="80dp"
-                android:paddingStart="12dp"
-                android:paddingTop="7dp"
-                android:paddingEnd="12dp"
-                tools:listitem="@layout/activity_menu_item" />
+                android:orientation="vertical">
+
+                <!-- RecyclerView cho sản phẩm Trái Cây Nội -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    tools:listitem="@layout/activity_menu_item" />
+
+                <!-- Tiêu đề cho sản phẩm Trái Cây Ngoại Nhập -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Trái Cây Ngoại Nhập"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/consolasligaturizedv3_bold"
+                        android:textSize="25sp"/>
+
+                </LinearLayout>
+
+                <!-- RecyclerView cho sản phẩm Trái Cây Ngoại Nhập -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewProductsNgoaiNhap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    tools:listitem="@layout/activity_menu_item" />
+
+                <!-- Tiêu đề cho sản phẩm Trái Cây Khác -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sản Phẩm Khác"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/consolasligaturizedv3_bold"
+                        android:paddingStart="10dp" />
+                </LinearLayout>
+                <!-- RecyclerView cho sản phẩm Trái Cây Khác -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewProductKhac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    tools:listitem="@layout/activity_menu_item" />
+
+            </LinearLayout>
+
         </LinearLayout>
+
+
     </ScrollView>
+
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="0dp"

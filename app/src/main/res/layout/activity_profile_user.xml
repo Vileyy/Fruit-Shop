@@ -134,6 +134,36 @@
                         android:inputType="textEmailAddress" />
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/background_edittext"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Email">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <EditText
+                        android:id="@+id/editTextAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="20"
+                        android:hint="Địa chỉ"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/editGender"
                     android:layout_width="match_parent"
@@ -145,7 +175,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Email">
+                    app:layout_constraintTop_toBottomOf="@+id/Address">
 
                     <TextView
                         android:id="@+id/textViewGender"
@@ -217,7 +247,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <!--<androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -324,5 +354,5 @@
             </LinearLayout>
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

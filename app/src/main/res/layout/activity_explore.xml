@@ -375,7 +375,6 @@
                         app:srcCompat="@drawable/icon_explore" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -406,7 +405,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         app:srcCompat="@drawable/icon_profile" />
-
                 </LinearLayout>
             </LinearLayout>
 

@@ -29,7 +29,6 @@ public class BuyAgainAdapter extends RecyclerView.Adapter<BuyAgainAdapter.ViewHo
         this.productImages = productImages;
         this.context = context;
     }
-
     @NonNull
     @Override
     public BuyAgainAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,7 +53,6 @@ public class BuyAgainAdapter extends RecyclerView.Adapter<BuyAgainAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView BuyAgainName, BuyAgainPrice;
         private ImageView BuyAgainImage;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             BuyAgainName = itemView.findViewById(R.id.buyAgainProductName);

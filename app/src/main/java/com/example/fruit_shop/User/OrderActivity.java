@@ -61,6 +61,11 @@ public class OrderActivity extends AppCompatActivity {
 
         //Xu ly su kien
         binding.imgBack.setOnClickListener(v -> finish());
+
+        binding.Home.setOnClickListener(v -> startActivity(new Intent(OrderActivity.this, HomeActivity.class)));
+        binding.Explore.setOnClickListener(v -> startActivity(new Intent(OrderActivity.this, ExploreActivity.class)));
+        binding.Profile.setOnClickListener(v -> startActivity(new Intent(OrderActivity.this, ProfileActivity.class)));
+
     }
 
     private void getOrderItemsDetail() {
@@ -142,5 +147,6 @@ public class OrderActivity extends AppCompatActivity {
         }
         return total;
     }
+
 
 }

@@ -117,7 +117,6 @@ public class PayActivity extends AppCompatActivity {
         cartItemRef.removeValue();
     }
 
-    // Có nên lưu luôn là 10.000đ hay 10000
     private int getTotalAmount() {
         int total = 0;
         if (orderItems != null) {

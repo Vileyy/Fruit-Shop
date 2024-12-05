@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -40,15 +41,22 @@ public class HomeActivity extends AppCompatActivity {
     private View btnProfile;
     private View btnNotification;
     private TextView productAll;
+    private ImageView start1, start2, start3, start4, start5;
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ImageView menuIcon, imagecat;
     private ArrayList<Product> productList, filteredList;
     private ImageSlider imgBanner;
-    private EditText searchEditText;
-
+    private EditText searchEditText;// Danh sách cho "Trái Cây Nội"
+    private ArrayList<Product> productListNgoaiNhap;  // Danh sách cho "Trái Cây Ngoại Nhập"// Adapter cho sản phẩm "Trái Cây Nội"
+    private ProductAdapter productAdapterNgoaiNhap; // Danh sách cho "Trái Cây Ngoại Nhập"
+    private ArrayList<Product> productListKhac;  // Danh sách cho "Trái Cây Ngoại Nhập"// Adapter cho sản phẩm "Trái Cây Nội"
+    private ProductAdapter productAdapterKhac;
     // Firebase
     private DatabaseReference databaseReference;
+    private RecyclerView recyclerViewProductsNgoaiNhap,recyclerViewProductKhac;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,8 @@ public class HomeActivity extends AppCompatActivity {
         productAll = findViewById(R.id.product_all);
         imgBanner = findViewById(R.id.imgBanner);
         searchEditText = findViewById(R.id.searchEditText);
+        recyclerViewProductsNgoaiNhap = findViewById(R.id.recyclerViewProductsNgoaiNhap);
+        recyclerViewProductKhac = findViewById(R.id.recyclerViewProductKhac);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -129,20 +139,34 @@ public class HomeActivity extends AppCompatActivity {
         productAdapter.updateProductList(filteredList);
     }
 
-    // Hàm lấy dữ liệu sản phẩm từ Firebase
     private void fetchProductsFromFirebase() {
+        // Khởi tạo reference đến Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Product");
         productList = new ArrayList<>();
+        productListNgoaiNhap = new ArrayList<>(); // Danh sách cho "Trái Cây Ngoại Nhập"
+        productListKhac = new ArrayList<>(); // Danh sách cho "Khác"
 
-        // Fetch data
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        // Fetch dữ liệu từ Firebase
+        databaseReference.limitToFirst(20).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Product productInfo = dataSnapshot.getValue(Product.class);
-                    productList.add(productInfo);
+
+                    // Kiểm tra category là "Trái Cây Nội", "Trái Cây Ngoại Nhập" hoặc "Khác"
+                    if (productInfo != null) {
+                        if ("Trái Cây Nội".equals(productInfo.getCategory())) {
+                            productList.add(productInfo);  // Thêm vào danh sách sản phẩm Nội
+                        } else if ("Trái Cây Ngoại Nhập".equals(productInfo.getCategory())) {
+                            productListNgoaiNhap.add(productInfo);  // Thêm vào danh sách sản phẩm Ngoại Nhập
+                        } else if ("Khác".equals(productInfo.getCategory())) {
+                            productListKhac.add(productInfo);  // Thêm vào danh sách sản phẩm Khác
+                        }
+                    }
                 }
-                showProducts();
+                showProducts(); // Hiển thị sản phẩm đã lọc cho "Trái Cây Nội"
+                showProductsNgoaiNhap(); // Hiển thị sản phẩm "Trái Cây Ngoại Nhập"
+                showProductsKhac(); // Hiển thị sản phẩm "Khác"
             }
 
             @Override
@@ -153,9 +177,32 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showProducts() {
+        List<Product> limitedProductList = productList.size() > 6 ? productList.subList(0, 6) : productList;
+        // Cập nhật RecyclerView cho sản phẩm "Trái Cây Nội"
         productAdapter = new ProductAdapter(this, productList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));  // Hiển thị 2 sản phẩm mỗi dòng
         recyclerView.setAdapter(productAdapter);
     }
+    private void showProductsNgoaiNhap() {
+        // Giới hạn số lượng sản phẩm hiển thị tối đa là 6
+        List<Product> limitedProductList = productListNgoaiNhap.size() > 6 ? productListNgoaiNhap.subList(0, 6) : productListNgoaiNhap;
+
+        // Cập nhật RecyclerView cho sản phẩm "Trái Cây Ngoại Nhập"
+        productAdapterNgoaiNhap = new ProductAdapter(this, new ArrayList<>(limitedProductList));
+        recyclerViewProductsNgoaiNhap.setLayoutManager(new GridLayoutManager(this, 2));  // Hiển thị 2 sản phẩm mỗi dòng
+        recyclerViewProductsNgoaiNhap.setAdapter(productAdapterNgoaiNhap);
+    }
+
+    private void showProductsKhac() {
+        // Giới hạn số lượng sản phẩm hiển thị tối đa là 6
+        List<Product> limitedProductList = productListKhac.size() > 6 ? productListKhac.subList(0, 6) : productListKhac;
+        // Cập nhật RecyclerView cho sản phẩm "Khác"
+        productAdapterKhac = new ProductAdapter(this, productListKhac);
+        recyclerViewProductKhac.setLayoutManager(new GridLayoutManager(this, 2));  // Hiển thị 2 sản phẩm mỗi dòng
+        recyclerViewProductKhac.setAdapter(productAdapterKhac);
+    }
+
+
 
     // Lấy dữ liệu Banners từ Firebase
     private void fetchBannersFromFirebase() {
